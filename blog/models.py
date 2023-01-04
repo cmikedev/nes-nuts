@@ -8,8 +8,8 @@ STATUS = ((0, "Draft"), (1, "Published"))
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField(max_length=255, unique=True)
+    title = models.CharField(max_length=250, unique=True)
+    slug = models.SlugField(max_length=250, unique=True)
     featured_image = CloudinaryField('image', default='placeholder')
     intro = models.TextField(blank=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -28,3 +28,19 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return '/%s/%s/' % (self.category.slug, self.slug)
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,
+                             related_name="comments")
+    name = models.CharField(max_length=250)
+    email = models.EmailField()
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["created_on"]
+
+    def __str__(self):
+        return f"Comment {self.body} by {self.name}"
