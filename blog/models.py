@@ -11,7 +11,7 @@ class Post(models.Model):
     title = models.CharField(max_length=250, unique=True)
     slug = models.SlugField(max_length=250, unique=True)
     featured_image = CloudinaryField('image', default='placeholder')
-    intro = models.TextField(blank=True)
+    excerpt = models.TextField(blank=True)
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
