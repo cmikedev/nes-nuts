@@ -1,1 +1,1 @@
-web: gunicorn nes_nuts.wsgi
+web: gunicorn nes-nuts.wsgi
